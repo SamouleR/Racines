@@ -1,0 +1,3 @@
+# Ignorer les vidéos volumineuses
+*.mp4
+video/*.mp4

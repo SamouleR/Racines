@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonts & Styles -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
+<title>Jeux : Arts & Traditions - Racines</title>
+<style>
+
+    body, .titre {
+        color: #bc163a;
+        background-color: #fff5eb;
+    }
+    
+  h1, h2 {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  
+  section {
+    padding: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+  }
+  
+  section .titre {
+      font-size: 2rem;
+  }
+  button {
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #b93c2c;
+  }
+  .quiz-question {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  .quiz-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+.quiz-options button {
+    position: relative;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    overflow: hidden;
+    z-index: 1;
+    padding: 12px 24px;
+    min-width: 200px;
+    background-color: transparent;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quiz-options button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e04e39;
+    z-index: -1;
+    clip-path: url(#blob);
+    transition: all 0.3s ease;
+}
+
+.quiz-options button:hover::before {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.quiz-options button.correct {
+    color: white;
+    cursor: default;
+}
+.quiz-options button.correct::before {
+    background-color: #27ae60;
+}
+
+.quiz-options button.incorrect {
+    color: white;
+    cursor: default;
+}
+.quiz-options button.incorrect::before {
+    background-color: #c0392b;
+}
+
+  .result {
+    font-weight: 700;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #e04e39;
+  }
+  /* Devine cette tradition */
+  .guess-tradition {
+    text-align: center;
+  }
+  .tradition-image {
+    max-width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    margin: 0 auto 15px;
+  }
+  .guess-buttons button {
+    margin: 8px 12px 12px 0;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 2px solid #e04e39;
+    background: white;
+    color: #e04e39;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .guess-buttons button:hover {
+    background-color: #e04e39;
+    color: white;
+  }
+  /* Puzzle */
+  .puzzle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .puzzle-board {
+    width: 400px;
+    height: 300px;
+    border: 2px solid #e04e39;
+    border-radius: 10px;
+    position: relative;
+    margin: 20px auto;
+    overflow: hidden;
+    background-color: #f9f9f9;
+  }
+  .puzzle-pieces {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    max-width: 400px;
+  }
+  .puzzle-piece {
+    width: 95px;
+    height: 70px;
+    background-size: 400px 300px;
+    border: 2px solid #e04e39;
+    border-radius: 8px;
+    cursor: grab;
+    transition: transform 0.2s;
+  }
+  .puzzle-piece:hover {
+    transform: scale(1.03);
+  }
+  .puzzle-slot {
+    position: absolute;
+    width: 100px;
+    height: 75px;
+    border: 1px dashed #e04e39;
+    box-sizing: border-box;
+  }
+  .puzzle-slot.correct {
+    border: 2px solid #27ae60;
+  }
+  .timer {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #e04e39;
+    margin: 10px 0;
+  }
+  .promo-code {
+    background-color: #f8f4e5;
+    border: 2px dashed #e04e39;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 1.2em;
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+  }
+  /* Mobile responsiveness */
+  @media (max-width: 500px) {
+    .puzzle-board {
+      width: 300px;
+      height: 225px;
+    }
+    .puzzle-piece {
+      width: 70px;
+      height: 50px;
+      background-size: 300px 225px;
+    }
+    .puzzle-slot {
+      width: 75px;
+      height: 56.25px;
+    }
+    .quiz-options {
+      flex-direction: column;
+    }
+    .quiz-options button {
+      min-width: auto;
+      width: 100%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG Blob (hidden) -->
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <clipPath id="blob" clipPathUnits="objectBoundingBox">
+      <path d="M0.455,-0.456C0.587,-0.324,0.691,-0.162,0.687,-0.004C0.683,0.154,0.571,0.308,0.439,0.433C0.308,0.558,0.154,0.654,-0.013,0.667C-0.18,0.68,-0.36,0.61,-0.495,0.485C-0.63,0.36,-0.72,0.18,-0.715,0.005C-0.71,-0.17,-0.61,-0.34,-0.475,-0.472C-0.34,-0.605,-0.17,-0.702,0.004,-0.706C0.178,-0.71,0.357,-0.621,0.455,-0.456Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<!--header-->
+<div id="header-placeholder"></div>
+
+<script>
+  fetch("/structure/header.php")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("header-placeholder").innerHTML = data;
+    });
+</script>
+
+<h1 class='titre'>Jeux : Arts & Traditions</h1>
+
+<!-- Quiz -->
+<section id="quiz-section">
+  <h2 class='titre'>Quiz : Teste tes connaissances</h2>
+  <div id="quiz-container"></div>
+  <button id="quiz-next" style="display:none;">Question suivante</button>
+  <div id="quiz-score" class="result"></div>
+</section>
+
+<!-- Devine cette tradition -->
+<section id="guess-section">
+  <h2 class='titre'>Devine cette tradition</h2>
+  <div class="guess-tradition">
+    <img id="tradition-image" class="tradition-image" src="" alt="Image tradition" />
+    <div class="guess-buttons" id="guess-buttons"></div>
+    <div id="guess-result" class="result"></div>
+    <button id="guess-next" style="display:none; margin-top: 15px;">Tradition suivante</button>
+  </div>
+</section>
+
+<!-- Puzzle d'image -->
+<section id="puzzle-section">
+  <h2 class='titre'>Puzzle : Reconstitue l'œuvre d'art (4x3)</h2>
+  <div class="puzzle-container">
+    <div class="puzzle-board" id="puzzle-board"></div>
+    <div class="puzzle-pieces" id="puzzle-pieces"></div>
+    <button id="puzzle-check">Vérifier le puzzle</button>
+    <div id="puzzle-result" class="result"></div>
+    <button id="puzzle-reset" style="margin-top: 10px;">Recommencer</button>
+    <div id="promo-code" class="promo-code"></div>
+  </div>
+</section>
+
+<script>
+/* ===== QUIZ ===== */
+
+const quizQuestions = [
+  {
+    question: "Quelle période est connue pour ses fresques préhistoriques ?",
+    options: ["Antiquité", "Préhistoire", "Renaissance", "Moyen Âge"],
+    answer: 1,
+  },
+  {
+    question: "Quel instrument est typique de la musique traditionnelle française ?",
+    options: ["Guitare électrique", "Luth", "Synthétiseur", "Batterie"],
+    answer: 1,
+  },
+  {
+    question: "Quelle tradition célèbre le solstice d'hiver en allumant des feux ?",
+    options: ["Halloween", "Noël", "Yule", "Carnaval"],
+    answer: 2,
+  },
+  {
+    question: "Quel mouvement artistique est associé à Léonard de Vinci ?",
+    options: ["Baroque", "Renaissance", "Romantisme", "Impressionnisme"],
+    answer: 1,
+  }
+];
+
+let currentQuizIndex = 0;
+let quizScore = 0;
+
+const quizContainer = document.getElementById("quiz-container");
+const quizNextBtn = document.getElementById("quiz-next");
+const quizScoreDisplay = document.getElementById("quiz-score");
+
+function showQuizQuestion() {
+  quizContainer.innerHTML = "";
+  quizScoreDisplay.textContent = "";
+
+  const q = quizQuestions[currentQuizIndex];
+
+  const questionEl = document.createElement("div");
+  questionEl.className = "quiz-question";
+  questionEl.textContent = q.question;
+
+  const optionsDiv = document.createElement("div");
+  optionsDiv.className = "quiz-options";
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.addEventListener("click", () => selectQuizOption(i, btn));
+    optionsDiv.appendChild(btn);
+  });
+
+  quizContainer.appendChild(questionEl);
+  quizContainer.appendChild(optionsDiv);
+
+  quizNextBtn.style.display = "none";
+}
+
+function selectQuizOption(selectedIndex, btn) {
+  const q = quizQuestions[currentQuizIndex];
+  const buttons = quizContainer.querySelectorAll("button");
+  buttons.forEach(b => b.disabled = true);
+
+  if (selectedIndex === q.answer) {
+    btn.classList.add("correct");
+    quizScore++;
+    quizScoreDisplay.textContent = `Bonne réponse ! Score : ${quizScore} / ${quizQuestions.length}`;
+  } else {
+    btn.classList.add("incorrect");
+    buttons[q.answer].classList.add("correct");
+    quizScoreDisplay.textContent = `Mauvaise réponse. Score : ${quizScore} / ${quizQuestions.length}`;
+  }
+
+  quizNextBtn.style.display = "inline-block";
+}
+
+quizNextBtn.addEventListener("click", () => {
+  currentQuizIndex++;
+  if (currentQuizIndex >= quizQuestions.length) {
+    quizContainer.innerHTML = `<p>Quiz terminé ! Ton score final est ${quizScore} sur ${quizQuestions.length}.</p>`;
+    quizNextBtn.style.display = "none";
+    quizScoreDisplay.textContent = "";
+  } else {
+    showQuizQuestion();
+  }
+});
+
+showQuizQuestion();
+
+/* ===== DEVINE CETTE TRADITION ===== */
+
+const traditions = [
+  {
+    name: "Carnaval",
+    image: "/img/jeu/carnaval.jpg",
+  },
+  {
+    name: "Moyen Âge",
+    image: "/img/jeu/moyen_age.jpg",
+  },
+  {
+    name: "Renaissance",
+    image: "/img/jeu/leonard.jpg",
+  },
+  {
+    name: "Fête de la musique",
+    image: "/img/jeu/fete.jpg",
+  },
+];
+
+let currentTraditionIndex = 0;
+
+const traditionImage = document.getElementById("tradition-image");
+const guessButtonsContainer = document.getElementById("guess-buttons");
+const guessResult = document.getElementById("guess-result");
+const guessNextBtn = document.getElementById("guess-next");
+
+function showTradition() {
+  guessResult.textContent = "";
+  guessNextBtn.style.display = "none";
+  guessButtonsContainer.innerHTML = "";
+
+  const tradition = traditions[currentTraditionIndex];
+  traditionImage.src = tradition.image;
+  traditionImage.alt = `Image représentant ${tradition.name}`;
+
+  // Création des boutons réponses mélangés
+  const options = [...traditions.map(t => t.name)];
+  shuffleArray(options);
+
+  options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.addEventListener("click", () => guessTradition(opt, tradition.name, btn));
+    guessButtonsContainer.appendChild(btn);
+  });
+}
+
+function guessTradition(selected, correct, btn) {
+  Array.from(guessButtonsContainer.children).forEach(b => b.disabled = true);
+  if (selected === correct) {
+    btn.style.backgroundColor = "#27ae60";
+    btn.style.color = "white";
+    guessResult.textContent = "Bravo ! Tu as deviné la bonne tradition.";
+  } else {
+    btn.style.backgroundColor = "#c0392b";
+    btn.style.color = "white";
+    guessResult.textContent = `Oups, ce n'est pas ça. La bonne réponse était : ${correct}.`;
+  }
+  guessNextBtn.style.display = "inline-block";
+}
+
+guessNextBtn.addEventListener("click", () => {
+  currentTraditionIndex++;
+  if (currentTraditionIndex >= traditions.length) {
+    guessButtonsContainer.innerHTML = "<p>Tu as fini toutes les traditions ! Super !</p>";
+    guessNextBtn.style.display = "none";
+    traditionImage.src = "";
+    guessResult.textContent = "";
+  } else {
+    showTradition();
+  }
+});
+
+showTradition();
+
+/* ===== PUZZLE D'IMAGE ===== */
+
+const puzzleImageUrl = "https://cdn.pixabay.com/photo/2017/08/30/12/45/girl-2696947_1280.jpg";
+const board = document.getElementById("puzzle-board");
+const piecesContainer = document.getElementById("puzzle-pieces");
+const puzzleCheckBtn = document.getElementById("puzzle-check");
+const puzzleResult = document.getElementById("puzzle-result");
+const puzzleResetBtn = document.getElementById("puzzle-reset");
+const promoCodeDisplay = document.getElementById("promo-code");
+
+// Créer les emplacements du puzzle (4x3)
+function createPuzzleSlots() {
+  board.innerHTML = "";
+  const rows = 4;
+  const cols = 3;
+  const slotWidth = board.clientWidth / cols;
+  const slotHeight = board.clientHeight / rows;
+  
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const slot = document.createElement("div");
+      slot.className = "puzzle-slot";
+      slot.dataset.row = row;
+      slot.dataset.col = col;
+      slot.style.left = `${col * slotWidth}px`;
+      slot.style.top = `${row * slotHeight}px`;
+      slot.style.width = `${slotWidth}px`;
+      slot.style.height = `${slotHeight}px`;
+      
+      // Permettre le drop
+      slot.addEventListener("dragover", e => {
+        e.preventDefault();
+      });
+      slot.addEventListener("drop", handleDrop);
+      
+      board.appendChild(slot);
+    }
+  }
+}
+
+// Créer les pièces du puzzle (4x3)
+function createPuzzlePieces() {
+  piecesContainer.innerHTML = "";
+  const rows = 4;
+  const cols = 3;
+  const pieceWidth = board.clientWidth / cols;
+  const pieceHeight = board.clientHeight / rows;
+  const imageWidth = board.clientWidth;
+  const imageHeight = board.clientHeight;
+  
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const piece = document.createElement("div");
+      piece.className = "puzzle-piece";
+      piece.draggable = true;
+      piece.dataset.row = row;
+      piece.dataset.col = col;
+      piece.style.width = `${pieceWidth - 10}px`;
+      piece.style.height = `${pieceHeight - 10}px`;
+      
+      // Position de l'image de fond pour chaque pièce
+      piece.style.backgroundImage = `url(${puzzleImageUrl})`;
+      piece.style.backgroundPosition = `-${col * pieceWidth}px -${row * pieceHeight}px`;
+      piece.style.backgroundSize = `${imageWidth}px ${imageHeight}px`;
+      
+      // Événements de drag
+      piece.addEventListener("dragstart", handleDragStart);
+      
+      piecesContainer.appendChild(piece);
+    }
+  }
+  
+  // Mélanger les pièces
+  shufflePuzzlePieces();
+}
+
+// Mélanger les pièces du puzzle
+function shufflePuzzlePieces() {
+  const pieces = Array.from(piecesContainer.children);
+  shuffleArray(pieces);
+  piecesContainer.innerHTML = "";
+  pieces.forEach(piece => piecesContainer.appendChild(piece));
+}
+
+// Gestion du drag
+function handleDragStart(e) {
+  e.dataTransfer.setData("text/plain", JSON.stringify({
+    row: e.target.dataset.row,
+    col: e.target.dataset.col
+  }));
+}
+
+// Gestion du drop
+function handleDrop(e) {
+  e.preventDefault();
+  const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+  const piece = document.querySelector(`.puzzle-piece[data-row="${data.row}"][data-col="${data.col}"]`);
+  
+  // Si l'emplacement est déjà occupé, ne rien faire
+  if (e.target.children.length > 0) return;
+  
+  // Déplacer la pièce dans l'emplacement
+  e.target.appendChild(piece);
+}
+
+// Vérifier le puzzle
+function checkPuzzle() {
+  const slots = document.querySelectorAll(".puzzle-slot");
+  let correctPieces = 0;
+  
+  slots.forEach(slot => {
+    const piece = slot.children[0];
+    if (piece && 
+        piece.dataset.row === slot.dataset.row && 
+        piece.dataset.col === slot.dataset.col) {
+      slot.classList.add("correct");
+      slot.classList.remove("incorrect");
+      correctPieces++;
+    } else if (piece) {
+      slot.classList.add("incorrect");
+      slot.classList.remove("correct");
+    }
+  });
+  
+  const totalPieces = 12; // 4x3
+  const percentage = Math.round((correctPieces / totalPieces) * 100);
+  
+  if (correctPieces === totalPieces) {
+    puzzleResult.textContent = "Félicitations ! Tu as réussi le puzzle !";
+    
+    // Afficher le code promo
+    const promoCode = generatePromoCode();
+    promoCodeDisplay.textContent = `Code promo: ${promoCode}`;
+    promoCodeDisplay.style.display = "block";
+  } else {
+    puzzleResult.textContent = `Tu as ${correctPieces} pièces correctement placées sur ${totalPieces} (${percentage}%). Continue !`;
+  }
+}
+
+// Générer un code promo aléatoire
+function generatePromoCode() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "";
+  for (let i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
+// Réinitialiser le puzzle
+function resetPuzzle() {
+  createPuzzleSlots();
+  createPuzzlePieces();
+  puzzleResult.textContent = "";
+  promoCodeDisplay.style.display = "none";
+}
+
+// Initialisation du puzzle
+createPuzzleSlots();
+createPuzzlePieces();
+
+// Événements
+puzzleCheckBtn.addEventListener("click", checkPuzzle);
+puzzleResetBtn.addEventListener("click", resetPuzzle);
+
+function shuffleArray(array) {
+  for(let i = array.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+
+</script>
+
+</body>
+</html>

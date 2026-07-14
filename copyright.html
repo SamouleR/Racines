@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="icon" href="/img/racines-logo.png" type="image/png" />
+    <title>Racines - Informations légales</title>
+    <style>
+        :root {
+            --primary: #BC163A;
+            --secondary: #A72642;
+            --light: #FFF5EB;
+            --accent: #FFD9A8;
+            --dark: #7D6852;
+            --white: #FFFFFF;
+            --black: #000000;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+            color: var(--black);
+            background-color: var(--light);
+        }
+
+        
+       
+
+        /* Styles du contenu principal */
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            position: relative;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        /* Style du menu latéral */
+        .side-menu {
+            width: 250px;
+            padding: 1.5rem;
+            background-color: var(--white);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            height: fit-content;
+            position: sticky;
+            top: 120px; /* Hauteur de la navbar + un peu de marge */
+            align-self: flex-start;
+        }
+
+        .side-menu h2 {
+            color: var(--primary);
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1.5rem;
+        }
+
+        .side-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .side-menu li {
+            margin-bottom: 0.8rem;
+        }
+
+        .side-menu a {
+            display: block;
+            padding: 0.8rem 1rem;
+            color: var(--black);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .side-menu a:hover, .side-menu a.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        /* Style des blobs alternés */
+        .blob-section {
+            position: relative;
+            margin: 3rem auto;
+            padding: 3rem;
+            background-color: var(--secondary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            color: var(--white);
+            width: 1500px;
+            max-width: 1500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        /* Ajout d'images de fond avec effet parallaxe */
+        .blob-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.1;
+            z-index: 0;
+            will-change: transform;
+        }
+
+        /* Images différentes pour chaque section */
+        #rgpd::before {
+            background-image: url('https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        #cgu::before {
+            background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        #mentions-legales::before {
+            background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        #cookies::before {
+            background-image: url('https://images.unsplash.com/photo-1590402494582-cc0f76fb500e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        }
+
+        /* Alternance gauche/droite */
+        .blob-section:nth-child(odd) {
+            border-radius: 70% 30% 60% 40% / 50% 60% 40% 50%;
+            margin-right: auto;
+            margin-left: 5%;
+        }
+
+        .blob-section:nth-child(even) {
+            border-radius: 30% 70% 40% 60% / 60% 40% 60% 40%;
+            margin-left: auto;
+            margin-right: 5%;
+        }
+
+        /* Contenu des blobs */
+        .blob-section > * {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .blob-section h2, .blob-section h3 {
+            color: var(--accent);
+        }
+
+        .blob-section p, .blob-section li {
+            color: var(--white);
+        }
+
+        .blob-section a {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .blob-section a:hover {
+            text-decoration: underline;
+        }
+
+        .blob-section strong {
+            color: var(--accent);
+        }
+
+        .blob-section em {
+            color: #f5d5b8;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+        }
+
+        /* Bouton Scroll to Top */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 100px;
+            right: 50px;
+            background-color: #BC163A;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        #scrollToTopBtn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: #A72642;
+            transform: translateY(-3px);
+        }
+
+        /* Icône SVG */
+        #scrollToTopBtn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            transition: transform 0.3s ease;
+        }
+
+        #scrollToTopBtn:hover svg {
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .side-menu {
+                width: 100%;
+                margin-bottom: 2rem;
+                position: static;
+            }
+            
+            .blob-section {
+                border-radius: 20px;
+                padding: 1.5rem;
+                width: auto;
+                max-width: 100%;
+            }
+
+            #scrollToTopBtn {
+                width: 50px;
+                height: 50px;
+                right: 20px;
+                bottom: 20px;
+            }
+        }
+
+        
+
+       #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 1.5rem;
+            z-index: 1000;
+            display: none; /* Caché par défaut */
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+        }
+
+        #cookie-banner.visible {
+            display: flex;
+        }
+
+        #cookie-banner p {
+            margin: 0 1rem 1rem 0;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #accept-cookies {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        #reject-cookies, #configure-cookies {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        /* Styles pour la modal des cookies */
+        #cookie-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        #cookie-modal h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+
+        .cookie-category {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cookie-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cookie-toggle h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--secondary);
+        }
+
+        .cookie-toggle p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Switch style */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            min-width: 60px;
+            margin-left: 1rem;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        input:disabled + .slider {
+            background-color: var(--dark);
+            cursor: not-allowed;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        #save-preferences {
+            background-color: var(--primary);
+            color: var(--white);
+            border-radius: 20px;
+        }
+
+        #cancel-preferences {
+            background-color: var(--white);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+        }
+
+        @media (max-width: 768px) {
+            
+
+            .cookie-buttons {
+                width: 100%;
+            }
+
+            .cookie-btn {
+                flex: 1;
+            }
+        }
+        
+        #scrollToTopBtn {
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+        }
+        
+        #scrollToTopBtn svg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!--header-->
+<div id="header-placeholder"></div>
+
+<script>
+  fetch("/structure/header.php")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("header-placeholder").innerHTML = data;
+    });
+</script>
+    </header>
+
+    <div class="content-wrapper">
+        <aside class="side-menu">
+            <h2>Informations légales</h2>
+            <ul>
+                <li><a href="#rgpd" class="active">RGPD</a></li>
+                <li><a href="#cgu">CGU</a></li>
+                <li><a href="#mentions-legales">Mentions Légales</a></li>
+                <li><a href="#cookies">Utilisation des Cookies</a></li>
+            </ul>
+        </aside>
+
+        <main>
+            <section id="rgpd" tabindex="0" aria-labelledby="rgpd-title" class="blob-section">
+                <h2 id="rgpd-title">Protection des Données Personnelles (RGPD)</h2>
+                <p>
+                    Notre engagement envers la <strong>protection de vos données personnelles</strong> est total. Nous respectons les exigences du <em>Règlement Général sur la Protection des Données (RGPD)</em> afin d'assurer la sécurité, la confidentialité et la transparence concernant les informations que vous nous confiez.
+                </p>
+                <p>
+                    <strong>Collecte des données :</strong> Nous recueillons uniquement les données nécessaires à la finalité définie, telles que vos coordonnées pour vous contacter ou vos préférences pour personnaliser votre expérience.
+                </p>
+                <p>
+                    <strong>Utilisation des données :</strong> Les informations collectées sont utilisées exclusivement pour :
+                </p>
+                <ul>
+                    <li>Fournir nos services et assurer leur qualité.</li>
+                    <li>Répondre à vos demandes ou questions.</li>
+                    <li>Vous informer des mises à jour importantes.</li>
+                </ul>
+                <p>
+                    Vos données ne seront jamais partagées avec des tiers sans votre consentement explicite.
+                </p>
+                <p>
+                    <strong>Vos droits :</strong> Conformément à la loi, vous pouvez :
+                </p>
+                <ul>
+                    <li>Accéder à vos données personnelles.</li>
+                    <li>Demander leur rectification ou suppression.</li>
+                    <li>Limiter ou vous opposer à leur traitement.</li>
+                    <li>Retirer votre consentement à tout moment.</li>
+                    <li>Exercer le droit à la portabilité des données.</li>
+                    <li>Introduire une réclamation auprès de la CNIL.</li>
+                </ul>
+                <p>
+                    Pour exercer ces droits, contactez-nous à <a href="mailto:contact@racines.ralaikoa.com">contact@racines.ralaikoa.com</a> avec une preuve d'identité.
+                </p>
+            </section>
+
+            <section id="cgu" tabindex="0" aria-labelledby="cgu-title" class="blob-section">
+                <h2 id="cgu-title">Conditions Générales d'Utilisation (CGU)</h2>
+                <p>
+                    L'utilisation de notre site implique l'acceptation sans réserve des présentes Conditions Générales d'Utilisation. Elles régissent les relations entre l'utilisateur et la société éditrice du site.
+                </p>
+                <p>
+                    <strong>Accès au site :</strong> Nous mettons à disposition un service accessible 24h/24, sauf en cas de maintenance ou force majeure.
+                </p>
+                <p>
+                    <strong>Responsabilités :</strong> Malgré tout le soin apporté à l'information diffusée, nous ne pouvons garantir l'exactitude, la complétude ou l'actualité des contenus. L'utilisateur est responsable de l'utilisation des informations obtenues.
+                </p>
+                <p>
+                    <strong>Comportement de l'utilisateur :</strong> Vous vous engagez à :
+                </p>
+                <ul>
+                    <li>Respecter la législation en vigueur.</li>
+                    <li>Ne pas perturber le fonctionnement du site.</li>
+                    <li>Ne pas utiliser le site pour des activités frauduleuses ou nuisibles.</li>
+                </ul>
+                <p>
+                    Toute infraction pourra entraîner une suspension ou une interdiction d'accès, sans préavis ni indemnité.
+                </p>
+                <p>
+                    <strong>Propriété intellectuelle :</strong> Tous les contenus présents (textes, images, logos) sont protégés par des droits d'auteur et sont la propriété exclusive de la société ou de ses partenaires.
+                </p>
+                <p>
+                    Toute reproduction, distribution ou exploitation non autorisée est interdite.
+                </p>
+            </section>
+
+            <section id="mentions-legales" tabindex="0" aria-labelledby="mentions-title" class="blob-section">
+                <h2 id="mentions-title">Mentions Légales</h2>
+                <p>
+                    <strong>Éditeur du site :</strong> <br />
+                    Société Exemple SARL<br />
+                    Siège social : 45 Avenue des Champs, 75008 Paris, France<br />
+                    SIRET : 123 456 789 00010<br />
+                    Téléphone : +33 1 23 45 67 89<br />
+                    Email : <a href="mailto:contact@exemple.com">contact@racines.ralaikoa.com</a>
+                </p>
+                <p>
+                    <strong>Directeur de la publication :</strong><br />
+                    Sophie LEVEQUE
+                </p>
+                <p>
+                    <strong>Hébergeur :</strong><br />
+                    Hostinsger<br />
+                    2 rue Kellermann, 59100 Roubaix, France<br />
+                    Téléphone : +33 9 72 10 10 07
+                </p>
+                <p>
+                    <strong>Développement & maintenance :</strong><br />
+                    Société WebDev Studio<br />
+                    ralaikoa.samuel@gmail.Com
+                </p>
+                <p>
+                    <strong>Back-office</strong><br />
+                    Jahnik web studio<br />
+                    jahnik.labry@gmail.Com
+                </p>
+            </section>
+
+            <section id="cookies" tabindex="0" aria-labelledby="cookies-title" class="blob-section">
+                <h2 id="cookies-title">Politique d'utilisation des Cookies</h2>
+                <p>
+                    Ce site utilise des cookies pour améliorer votre expérience utilisateur. Cette section explique ce que sont les cookies, comment nous les utilisons et comment vous pouvez les gérer.
+                </p>
+                
+                <h3>Que sont les cookies ?</h3>
+                <p>
+                    Les cookies sont de petits fichiers texte stockés sur votre appareil lorsque vous visitez un site web. Ils sont largement utilisés pour faire fonctionner les sites web ou les rendre plus efficaces, ainsi que pour fournir des informations aux propriétaires du site.
+                </p>
+                
+                <h3>Types de cookies utilisés</h3>
+                <ul>
+                    <li>
+                        <strong>Cookies essentiels :</strong> Nécessaires au fonctionnement du site. Ils vous permettent de naviguer et d'utiliser les fonctionnalités de base.
+                    </li>
+                    <li>
+                        <strong>Cookies de performance :</strong> Nous aident à comprendre comment les visiteurs interagissent avec notre site en collectant des informations anonymes.
+                    </li>
+                    <li>
+                        <strong>Cookies de fonctionnalité :</strong> Permettent au site de se souvenir de vos choix (comme votre langue ou votre région) pour offrir une expérience améliorée.
+                    </li>
+                    <li>
+                        <strong>Cookies de ciblage :</strong> Utilisés pour diffuser des publicités plus pertinentes pour vous et vos centres d'intérêt.
+                    </li>
+                </ul>
+                
+                <h3>Gestion des cookies</h3>
+                <p>
+                    Vous pouvez contrôler et/ou supprimer les cookies comme vous le souhaitez. Vous pouvez supprimer tous les cookies déjà stockés sur votre ordinateur et configurer la plupart des navigateurs pour les bloquer. Cependant, si vous le faites, vous devrez peut-être ajuster manuellement certaines préférences à chaque visite et certaines fonctionnalités pourraient ne pas fonctionner.
+                </p>
+                
+                <p>
+                    Pour plus d'informations sur la gestion des cookies dans différents navigateurs, consultez les liens suivants :
+                </p>
+                <ul>
+                    <li><a href="https://support.google.com/chrome/answer/95647" target="_blank">Chrome</a></li>
+                    <li><a href="https://support.mozilla.org/fr/kb/cookies-informations-sites-enregistrent" target="_blank">Firefox</a></li>
+                    <li><a href="https://support.microsoft.com/fr-fr/help/17442/windows-internet-explorer-delete-manage-cookies" target="_blank">Internet Explorer</a></li>
+                    <li><a href="https://support.apple.com/fr-fr/guide/safari/sfri11471/mac" target="_blank">Safari</a></li>
+                    <li><a href="https://help.opera.com/en/latest/web-preferences/#cookies" target="_blank">Opera</a></li>
+                </ul>
+                
+                <h3>Modification de notre politique sur les cookies</h3>
+                <p>
+                    Nous pouvons mettre à jour cette politique occasionnellement pour refléter les changements dans nos pratiques en matière de cookies ou pour d'autres raisons opérationnelles, légales ou réglementaires. Nous vous encourageons à consulter régulièrement cette politique pour rester informé de notre utilisation des cookies.
+                </p>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner">
+        <p>
+            Ce site utilise des cookies pour améliorer votre expérience. Nous utilisons des cookies essentiels au fonctionnement du site. 
+            Vous pouvez accepter tous les cookies ou personnaliser vos préférences.
+        </p>
+        <div class="cookie-buttons">
+            <button id="accept-cookies" class="cookie-btn">Accepter tous</button>
+            <button id="reject-cookies" class="cookie-btn">Refuser</button>
+            <button id="configure-cookies" class="cookie-btn">Personnaliser</button>
+        </div>
+    </div>
+
+    <!-- Cookie Preferences Modal -->
+    <div id="cookie-modal">
+        <h3>Préférences en matière de cookies</h3>
+        
+        <div class="cookie-category">
+            <div class="cookie-toggle">
+                <div>
+                    <h4>Cookies essentiels</h4>
+                    <p>Nécessaires au fonctionnement du site. Ils ne peuvent pas être désactivés.</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" checked disabled>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="cookie-category">
+            <div class="cookie-toggle">
+                <div>
+                    <h4>Cookies de performance</h4>
+                    <p>Nous aident à améliorer notre site en collectant des informations anonymes sur son utilisation.</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="performance-cookies" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="cookie-category">
+            <div class="cookie-toggle">
+                <div>
+                    <h4>Cookies de fonctionnalité</h4>
+                    <p>Permettent au site de se souvenir de vos choix pour une meilleure expérience.</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="functionality-cookies" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="cookie-category">
+            <div class="cookie-toggle">
+                <div>
+                    <h4>Cookies de ciblage</h4>
+                    <p>Utilisés pour diffuser des publicités plus pertinentes pour vous.</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" id="targeting-cookies">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="modal-buttons">
+            <button id="save-preferences" class="cookie-btn">Enregistrer mes préférences</button>
+            <button id="cancel-preferences" class="cookie-btn">Annuler</button>
+        </div>
+    </div>
+     <!-- Bouton Scroll to Top -->
+    <button id="scrollToTopBtn" aria-label="Remonter en haut">
+        <svg viewBox="0 0 24 24">
+            <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.59 5.58L20 12l-8-8-8 8z"/>
+        </svg>
+    </button>
+    <script>
+       // =============================================
+// GESTION DES COOKIES
+// =============================================
+
+// Fonction pour définir un cookie
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+// Fonction pour récupérer un cookie
+function getCookie(name) {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    for (const cookie of cookies) {
+        const [cookieName, cookieValue] = cookie.split('=');
+        if (cookieName === name) {
+            return cookieValue;
+        }
+    }
+    return null;
+}
+
+// Vérifie si l'utilisateur a déjà consenti aux cookies
+function hasCookieConsent() {
+    return getCookie('cookies_accepted') || getCookie('cookies_preferences');
+}
+
+// Affiche ou masque la bannière cookies selon le consentement
+function handleCookieBanner() {
+    const cookieBanner = document.getElementById('cookie-banner');
+    if (!cookieBanner) return;
+
+    if (!hasCookieConsent()) {
+        cookieBanner.classList.add('visible');
+    } else {
+        cookieBanner.classList.remove('visible');
+    }
+}
+
+// Gère l'enregistrement des préférences cookies
+function saveCookiePreferences() {
+    const performance = document.getElementById('performance-cookies').checked ? 'performance' : '';
+    const functionality = document.getElementById('functionality-cookies').checked ? 'functionality' : '';
+    const targeting = document.getElementById('targeting-cookies').checked ? 'targeting' : '';
+    
+    const preferences = ['essential', performance, functionality, targeting]
+        .filter(Boolean).join(',');
+    
+    setCookie('cookies_preferences', preferences, 365);
+    hideCookieBanner();
+}
+
+// Masque la bannière avec une animation
+function hideCookieBanner() {
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+
+    banner.style.opacity = '1';
+    
+    let opacity = 1;
+    const fadeOut = setInterval(() => {
+        opacity -= 0.05;
+        banner.style.opacity = opacity;
+        
+        if (opacity <= 0) {
+            clearInterval(fadeOut);
+            banner.classList.remove('visible');
+            banner.style.opacity = '1';
+        }
+    }, 30);
+}
+
+// Initialise les écouteurs d'événements pour les cookies
+function initCookieEvents() {
+    // Acceptation globale
+    const acceptBtn = document.getElementById('accept-cookies');
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', () => {
+            setCookie('cookies_accepted', 'true', 365);
+            hideCookieBanner();
+        });
+    }
+
+    // Refus global
+    const rejectBtn = document.getElementById('reject-cookies');
+    if (rejectBtn) {
+        rejectBtn.addEventListener('click', () => {
+            setCookie('cookies_preferences', 'essential', 365);
+            hideCookieBanner();
+        });
+    }
+
+    // Configuration
+    const configBtn = document.getElementById('configure-cookies');
+    if (configBtn) {
+        configBtn.addEventListener('click', () => {
+            const modal = document.getElementById('cookie-modal');
+            if (modal) modal.style.display = 'block';
+        });
+    }
+
+    // Sauvegarde des préférences
+    const saveBtn = document.getElementById('save-preferences');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', saveCookiePreferences);
+    }
+
+    // Annulation
+    const cancelBtn = document.getElementById('cancel-preferences');
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            const modal = document.getElementById('cookie-modal');
+            if (modal) modal.style.display = 'none';
+        });
+    }
+
+    // Fermeture modale au clic extérieur
+    window.addEventListener('click', (e) => {
+        const modal = document.getElementById('cookie-modal');
+        if (e.target === modal && modal) {
+            modal.style.display = 'none';
+        }
+    });
+}
+
+// =============================================
+// GESTION DU SCROLL ET ANIMATIONS
+// =============================================
+
+// Anime les sections au défilement
+function animateOnScroll() {
+    const blobSections = document.querySelectorAll('.blob-section');
+    if (!blobSections.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    blobSections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(section);
+    });
+}
+
+// Gère le bouton "scroll to top"
+function handleScrollToTop() {
+    const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    if (!scrollToTopBtn) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.add('show');
+        } else {
+            scrollToTopBtn.classList.remove('show');
+        }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// Effet parallaxe pour les images de fond
+function initParallaxEffect() {
+    const blobSections = document.querySelectorAll('.blob-section');
+    if (!blobSections.length) return;
+
+    window.addEventListener('scroll', () => {
+        blobSections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const scrollPercent = (rect.top / window.innerHeight) * 100;
+            section.style.backgroundPositionY = `${50 + (scrollPercent * 0.2)}%`;
+        });
+    });
+}
+
+// =============================================
+// GESTION DU MENU LATERAL
+// =============================================
+
+// Initialise les interactions du menu latéral
+function initSideMenu() {
+    const sideMenuLinks = document.querySelectorAll('.side-menu a');
+    if (!sideMenuLinks.length) return;
+
+    sideMenuLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const activeLink = document.querySelector('.side-menu a.active');
+            if (activeLink) activeLink.classList.remove('active');
+            this.classList.add('active');
+            
+            if (this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+}
+
+// =============================================
+// INITIALISATION GENERALE
+// =============================================
+
+// Charge le header et footer dynamiquement
+function loadDynamicContent() {
+    // Chargement du header
+    const headerPlaceholder = document.getElementById('header-placeholder');
+    if (headerPlaceholder) {
+        fetch("/structure/header.php")
+            .then(response => response.text())
+            .then(data => {
+                headerPlaceholder.innerHTML = data;
+            })
+            .catch(error => {
+                console.error("Error loading header:", error);
+            });
+    }
+
+    // Chargement du footer
+    const footerPlaceholder = document.getElementById('footer-placeholder');
+    if (footerPlaceholder) {
+        fetch("/structure/footer.php")
+            .then(response => response.text())
+            .then(data => {
+                footerPlaceholder.innerHTML = data;
+            })
+            .catch(error => {
+                console.error("Error loading footer:", error);
+            });
+    }
+}
+
+// Initialise toutes les fonctionnalités
+document.addEventListener('DOMContentLoaded', function() {
+    // Cookies
+    handleCookieBanner();
+    initCookieEvents();
+
+    // Animations et scroll
+    animateOnScroll();
+    handleScrollToTop();
+    initParallaxEffect();
+
+    // Menu
+    initSideMenu();
+
+    // Contenu dynamique
+    loadDynamicContent();
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agence - Racines</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet" />
+
+  <style>
+/* --- GLOBAL --- */
+body {
+  font-family: 'Sora', sans-serif;
+  background-color: #FFF5EB;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* --- IMAGES DE FOND ANIMÉES --- */
+.background-image {
+  position: absolute;
+  z-index: -1;
+  opacity: 0.15;
+  width: 500px;
+  height: 500px;
+  object-fit: contain;
+  border-radius: 20px;
+  filter: sepia(50%) brightness(90%);
+}
+
+.bg-image-left {
+  left: 50px;
+  top: 30%;
+  animation: floatFromLeft 20s ease-in-out infinite;
+}
+
+.bg-image-right {
+  right: 50px;
+  top: 30%;
+  animation: floatFromRight 20s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes floatFromLeft {
+  0%   { transform: translateX(-30px) rotate(-5deg); }
+  50%  { transform: translateX(30px) rotate(3deg); }
+  100% { transform: translateX(-30px) rotate(-5deg); }
+}
+
+@keyframes floatFromRight {
+  0%   { transform: translateX(30px) rotate(5deg); }
+  50%  { transform: translateX(-30px) rotate(-3deg); }
+  100% { transform: translateX(30px) rotate(5deg); }
+}
+
+/* --- TITRES --- */
+h2.section-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #000;
+  margin: 60px 0 20px;
+}
+
+/* --- ÉQUIPE --- */
+.team-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  padding: 80px 20px;
+  position: relative;
+}
+
+.member {
+  flex: 1 1 260px;
+  max-width: 360px;
+  text-align: center;
+  color: #222;
+  position: relative;
+  z-index: 1;
+}
+
+.cercle-deforme {
+  width: 320px;
+  height: 320px;
+  margin: 0 auto 15px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 60% 25% 75% 40% / 50% 60% 20% 70%;
+  position: relative;
+  z-index: 2;
+}
+
+.cercle-deforme:hover {
+  transform: scale(1.05);
+}
+
+.cercle-deforme img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+@keyframes morph {
+  0%   { border-radius: 60% 25% 75% 40% / 50% 60% 20% 70%; }
+  50%  { border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%; }
+  100% { border-radius: 60% 25% 75% 40% / 50% 60% 20% 70%; }
+}
+
+.cercle1 { animation: morph 6s ease-in-out infinite; }
+.cercle2 { animation: morph 6s ease-in-out infinite reverse; }
+.cercle3 { animation: morph 6s ease-in-out infinite alternate; }
+.cercle4 { animation: morph 6s ease-in-out infinite alternate-reverse; }
+
+.member h3 {
+  color: #7D6852;
+  font-size: 1.6rem;
+  margin: 10px 0 5px;
+}
+
+.member p {
+  color: #7D6852;
+  font-size: 1.1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* --- SECTION GROUPE --- */
+.group-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px;
+  color: #7D6852;
+  text-align: center;
+}
+
+.group-section h2 {
+  font-size: 2.5rem;
+  color: #000;
+  margin-bottom: 40px;
+}
+
+.group-image {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(125, 104, 82, 0.4);
+  animation: blobMove 8s infinite ease-in-out;
+  transition: transform 0.3s ease;
+  margin-bottom: 40px;
+}
+
+.group-image:hover {
+  transform: scale(1.03);
+}
+
+.group-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
+
+@keyframes blobMove {
+  0%   { border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%; }
+  33%  { border-radius: 60% 30% 70% 40% / 30% 70% 40% 60%; }
+  66%  { border-radius: 30% 70% 40% 60% / 70% 40% 60% 30%; }
+  100% { border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%; }
+}
+
+.group-text {
+  max-width: 80%;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 0 auto;
+  text-align: left;
+  color: #7D6852;
+}
+
+.group-text p {
+  margin-bottom: 1.5rem;
+}
+
+.group-text p.final-line {
+  margin-top: 2rem;
+  font-weight: 600;
+  font-style: italic;
+}
+  /* --- SECTION PARTENAIRES SIMPLIFIÉE --- */
+        .partner-section {
+            text-align: center;
+            margin: 60px auto;
+            padding: 40px 20px;
+            max-width: 1200px;
+        }
+
+        .partner-section h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .partner-section h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background: #E74C3C;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .partners-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .partner-logo {
+            max-width: 180px;
+            height: auto;
+            filter: grayscale(100%);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .partners-container {
+                gap: 30px;
+            }
+            
+            .partner-logo {
+                max-width: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .partners-container {
+                gap: 20px;
+            }
+            
+            .partner-logo {
+                max-width: 120px;
+            }
+            
+            .partner-section h2 {
+                font-size: 2rem;
+            }
+        }
+/* --- RESPONSIVE --- */
+@media (max-width: 1100px) {
+  .member {
+    flex: 1 1 calc(33.333% - 40px);
+  }
+}
+
+@media (max-width: 800px) {
+  .member {
+    flex: 1 1 calc(50% - 40px);
+  }
+
+  .cercle-deforme {
+    width: 250px;
+    height: 250px;
+  }
+
+  .group-section {
+    padding: 40px 15px;
+  }
+
+  .group-text {
+    max-width: 95%;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  .group-section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .group-image {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .partners-blob {
+    width: 400px;
+    height: 300px;
+  }
+  
+  .partner-blob {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 500px) {
+  .member {
+    flex: 1 1 100%;
+  }
+
+  .cercle-deforme {
+    width: 200px;
+    height: 200px;
+  }
+
+  .member h3 {
+    font-size: 1.3rem;
+  }
+
+  .member p {
+    font-size: 1rem;
+  }
+
+  .group-text {
+    font-size: 1rem;
+    line-height: 1.4;
+    max-width: 95%;
+    text-align: left;
+  }
+
+  .group-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+
+  .group-text p.final-line {
+    margin-top: 1.5rem;
+  }
+
+  .partners-blob {
+    width: 300px;
+    height: 250px;
+  }
+  
+  
+}
+
+  </style>
+</head>
+<body>
+  <!-- Images de fond animées -->
+  <img src="/img/patterns/rouge/feuille.webp" alt="Motif décoratif" class="background-image bg-image-left">
+  <img src="/img/patterns/rouge/feuille.webp" alt="Motif décoratif" class="background-image bg-image-right">
+  
+  <!-- NAVBAR -->
+  <div id="header-placeholder"></div>
+
+  <!-- TITRE SECTION AGENCE -->
+  <h2 class="section-title">Notre agence</h2>
+
+  <section>
+    <!-- Équipe -->
+    <div class="team-container">
+      <div class="member">
+        <div class="cercle-deforme cercle1">
+          <img src="/img/agence/Joshua.png" alt="KITOKA Joshua" />
+        </div>
+        <h3>KITOKA Joshua</h3>
+        <p>Directeur artistique, concepteur visuel</p>
+      </div>
+
+      <div class="member">
+        <div class="cercle-deforme cercle2">
+          <img src="/img/agence/Jahnik.png" alt="LABRY Jahnik" />
+        </div>
+        <h3>LABRY Jahnik</h3>
+        <p>Développeur web</p>
+      </div>
+
+      <div class="member">
+        <div class="cercle-deforme cercle3">
+          <img src="/img/agence/sophie.png" alt="LEVEQUE Sophie" />
+        </div>
+        <h3>LEVEQUE Sophie</h3>
+        <p>Communication & positionnement</p>
+      </div>
+
+      <div class="member">
+        <div class="cercle-deforme cercle4">
+          <img src="/img/agence/samuel.png" alt="RALAIKOA Samuel" />
+        </div>
+        <h3>RALAIKOA Samuel</h3>
+        <p>Développeur web, étude de marché</p>
+      </div>
+    </div>
+  </section>
+
+ <!-- SECTION PARTENAIRES SIMPLIFIÉE -->
+    <section class="partner-section">
+        <h2 id="partenaires">Nos Partenaires</h2>
+        <div class="partners-container">
+            <a href="https://www.iledefrance.fr/" target="_blank" rel="noopener noreferrer">
+                <img class="partner-logo" src="img/agence/idf.png" alt="Région Île-de-France" />
+            </a>
+            
+            <a href="https://pass.culture.fr/" target="_blank" rel="noopener noreferrer">
+                <img class="partner-logo" src="img/agence/passculture.png" alt="Pass Culture" />
+            </a>
+            
+            <a href="https://www.culture.gouv.fr/" target="_blank" rel="noopener noreferrer">
+                <img class="partner-logo" src="img/agence/ministère.png" alt="Ministère de la Culture" />
+            </a>
+            
+            <a href="https://www.amf.asso.fr/" target="_blank" rel="noopener noreferrer">
+                <img class="partner-logo" src="/img/agence/amf.png" alt="Association des Maires de France" />
+            </a>
+        </div>
+    </section>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    // Chargement dynamique du header
+    fetch("/structure/header.php")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("header-placeholder").innerHTML = data;
+
+        // Initialisation menu responsive après insertion header
+        const burger = document.querySelector('.burger-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        if (burger && navMenu) {
+          burger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            burger.classList.toggle('active');
+          });
+        }
+      });
+
+    // Chargement dynamique du footer
+    fetch("/structure/footer.php")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("footer-placeholder").innerHTML = data;
+      });
+  </script>
+</body>
+</html>

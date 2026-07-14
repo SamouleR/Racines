@@ -1,0 +1,165 @@
+/* === Global Styles === */
+body {
+    background-color: #FFF5EB;
+    font-family: 'Sora', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* === Form Container === */
+.form-container {
+    background-color: #BC163A;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+
+/* === Fields === */
+
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: rgba(255, 255, 255, 0.75);
+    padding: 30px;
+    border-radius: 2rem;
+    box-shadow: 0 8px 24px rgba(167, 38, 66, 0.6); /* Ombre rouge */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease-in-out;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #A72642;
+}
+
+/* Champs de formulaire */
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+textarea {
+    font-size: 0.85em;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 250px;
+    max-height: 250px;
+}
+
+input[type='text'],
+input[type='tel'],
+input[type='email'],
+input[type='password']:focus {
+    outline: none;
+}
+
+/* Bouton de connexion */
+input[type="submit"] {
+    background-color: #7D6852;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #5e4f41;
+}
+
+
+/* Aide et liens */
+.help {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.help a {
+    color: #A72642;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.help a:hover {
+    text-decoration: underline;
+}
+
+.help p {
+    color: #A72642;
+    font-weight: 500;
+}
+
+.help #connect_admin {
+    color: #ababab;
+}
+
+/* Trait en rouge */
+hr {
+    border: none;
+    border-top: 1px solid #A72642;
+    margin: 20px 0;
+}
+
+/*Mot de passe*/
+.toggle-password {
+        position: absolute;
+        right: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #666;
+        padding: 5px;
+    }
+
+    .toggle-password:hover {
+        color: #333;
+    }
+
+    .toggle-password:focus {
+        outline: none;
+    }
+
+
+/* === Responsive === */
+@media (max-width: 600px) {
+    #form-contact {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    h1.titre_page {
+        font-size: 20px;
+    }
+
+    input,
+    textarea {
+        font-size: 15px;
+    }
+
+    input[type="submit"] {
+        font-size: 15px;
+    }
+}

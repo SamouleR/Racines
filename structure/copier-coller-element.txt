@@ -1,0 +1,100 @@
+IMPORTANT : 
+- IL FAUT BIEN COPIER COLLER LE DIV ET LE SCRIPT
+
+HEAD 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Événements - Racines</title>
+
+    <!-- Fonts & Styles -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
+    
+    SI FORMULAIRE
+    <link rel="stylesheet" href="/style_form.css">
+    
+</head>
+
+
+
+
+HEADER
+
+<!--header-->
+<div id="header-placeholder"></div>
+
+<script>
+  fetch("/structure/header.php")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("header-placeholder").innerHTML = data;
+    });
+</script>
+
+
+
+CLIC
+
+<!--clic-->
+<div id="clic-placeholder"></div>
+
+<script>
+  fetch("/structure/clic.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("header-placeholder").innerHTML = data;
+    });
+</script>
+BOUTON
+
+<!--bouton-->
+<div id="bouton-placeholder"></div>
+
+<script>
+  fetch("/structure/slider.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("bouton-placeholder").innerHTML = data;
+    });
+</script>
+
+
+
+
+
+
+
+ASIDE
+
+
+<!--aside-->
+<div id="aside-placeholder"></div>
+
+<script>
+  fetch("/structure/aside.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("aside-placeholder").innerHTML = data;
+    });
+</script>
+
+
+
+
+
+FOOTER
+
+
+<!--footer-->
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch("/structure/footer.php")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("footer-placeholder").innerHTML = data;
+    });
+</script>
